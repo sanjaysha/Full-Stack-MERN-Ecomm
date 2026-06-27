@@ -24,7 +24,6 @@ function CreateProduct() {
 
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.admin);
-  console.log(error, success, "LLLL");
   const createProductImage = (e) => {
     const files = Array.from(e.target.files);
     setProductImages([]);
