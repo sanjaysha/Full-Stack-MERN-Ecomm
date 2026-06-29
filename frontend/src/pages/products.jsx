@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -23,9 +23,25 @@ function products() {
   const [currentPage, setCurrentPage] = useState(pageFromUrl);
   const categoryFromUrl = searchParams.get("category") || "";
   const [selectedCategory, setSelectedCategory] = useState(categoryFromUrl);
-  const categories = ["Tshirts", "Shirts", "Jeans", "Pants", "Hats", "Caps"];
+  const categories = [
+    "All",
+    "Tshirts",
+    "Shirts",
+    "Jeans",
+    "Pants",
+    "Hats",
+    "Caps",
+  ];
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setCurrentPage(pageFromUrl);
+  }, [pageFromUrl]);
+
+  useEffect(() => {
+    setSelectedCategory(categoryFromUrl);
+  }, [categoryFromUrl]);
 
   useEffect(() => {
     dispatch(
@@ -56,12 +72,22 @@ function products() {
   };
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    const selected = category === "All" ? "" : category;
+
+    setSelectedCategory(selected);
     setCurrentPage(1);
-    const newSearchParams = new URLSearchParams(location.search);
-    newSearchParams.set("category", category);
-    newSearchParams.delete("page");
-    navigate(`?${newSearchParams.toString()}`);
+
+    const params = new URLSearchParams(location.search);
+
+    if (selected) {
+      params.set("category", selected);
+    } else {
+      params.delete("category");
+    }
+
+    params.delete("page");
+
+    navigate(`?${params.toString()}`);
   };
 
   return (
@@ -71,16 +97,16 @@ function products() {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex flex-row p-8 gap-8">
-          <div className="basis-1/4 shadow-lg p-4 rounded-lg">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 lg:flex-row lg:px-8">
+          <div className="w-full lg:w-1/4 lg:sticky lg:top-24 self-start rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
             <h2 className="m-1 p-2 font-semibold">Categories</h2>
-            <ul>
+            <ul className="flex gap-3 overflow-x-auto pb-2 lg:block">
               {categories.map((category) => (
                 <li
                   key={category}
-                  className={`cursor-pointer m-1 p-2 rounded ${
+                  className={`cursor-pointer flex-shrink-0 rounded-full px-4 py-2 text-sm transition rounded ${
                     selectedCategory === category
-                      ? "bg-blue-500 text-white"
+                      ? "bg-olive-600 text-white text-white"
                       : "hover:bg-gray-200"
                   }`}
                   onClick={() => {
@@ -93,13 +119,13 @@ function products() {
             </ul>
           </div>
           {products.length > 0 ? (
-            <div className="flex flex-col gap-6 basis-3/4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 ">
+            <div className="flex flex-col gap-6 w-full lg:w-3/4">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                 {products.map((product) => (
                   <Product key={product._id} product={product} />
                 ))}
               </div>
-              <div>
+              <div className="flex justify-center">
                 <Pagination
                   currentPage={currentPage}
                   onPageChange={handlePageChange}
@@ -107,7 +133,7 @@ function products() {
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-center w-full h-100">
+            <div className="flex items-center justify-center w-full min-h-[400px]">
               <NoProducts keyword={keyword} />
             </div>
           )}
