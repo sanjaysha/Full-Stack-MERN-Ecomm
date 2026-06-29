@@ -116,37 +116,45 @@ function UpdateOrder() {
                 <h1 className="text-xl font-semibold pb-2 border-b border-gray-300">
                   Order Items
                 </h1>
-                <table className="w-full text-left border-collapse">
-                  <thead className="bg-gray-200">
-                    <tr>
-                      <th className="rounded-tl-md rounded-bl-md p-2">Image</th>
-                      <th className="p-2">Name</th>
-                      <th className="p-2">Quantity</th>
-                      <th className="rounded-tr-md rounded-br-md p-2">Price</th>
-                    </tr>
-                  </thead>
+                <div className="overflow-x-auto bg-gray-50 rounded-lg shadow">
+                  <table className="w-full text-left border-collapse">
+                    <thead className="bg-gray-200">
+                      <tr>
+                        <th className="rounded-tl-md rounded-bl-md p-2">
+                          Image
+                        </th>
+                        <th className="p-2">Name</th>
+                        <th className="p-2">Quantity</th>
+                        <th className="rounded-tr-md rounded-br-md p-2">
+                          Price
+                        </th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                    {order &&
-                      order.orderItems?.map((orderItem) => (
-                        <tr
-                          className="border-b border-gray-200"
-                          key={orderItem._id}
-                        >
-                          <td className="p-2">
-                            <img
-                              src={orderItem.image}
-                              alt={orderItem.name}
-                              className="w-24 h-24 object-cover rounded-md"
-                            />
-                          </td>
-                          <td className="p-2">{orderItem.name}</td>
-                          <td className="p-2">{orderItem.quantity}</td>
-                          <td className="p-2">₹{orderItem.price.toFixed(2)}</td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
+                    <tbody>
+                      {order &&
+                        order.orderItems?.map((orderItem) => (
+                          <tr
+                            className="border-b border-gray-200"
+                            key={orderItem._id}
+                          >
+                            <td className="p-2">
+                              <img
+                                src={orderItem.image}
+                                alt={orderItem.name}
+                                className="w-24 h-24 object-cover rounded-md"
+                              />
+                            </td>
+                            <td className="p-2">{orderItem.name}</td>
+                            <td className="p-2">{orderItem.quantity}</td>
+                            <td className="p-2">
+                              ₹{orderItem.price.toFixed(2)}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div className="flex flex-col gap-3">
                 <h1 className="text-xl font-semibold pb-2 border-b border-gray-300">

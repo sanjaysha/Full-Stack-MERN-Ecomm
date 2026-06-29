@@ -26,7 +26,6 @@ function Shipping() {
 
   const submitShippingForm = (e) => {
     e.preventDefault();
-    // Implement form submission logic here, e.g., save shipping info and navigate to confirm order page
     if (!address || !pinCode || !phoneNumber || !country) {
       toast.error("Please fill in all fields", {
         position: "top-center",
@@ -98,20 +97,6 @@ function Shipping() {
                     >
                       Pin Code
                     </label>
-                    {/* <input
-                      type="number"
-                      id="pinCode"
-                      placeholder="Enter your pin code"
-                      className="border border-gray-300 rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                      value={pinCode}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (value === "" || Number(value) >= 0) {
-                          setPinCode(value);
-                        }
-                      }}
-                      min={0}
-                    /> */}
                     <input
                       className="border border-gray-300 rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                       type="text"

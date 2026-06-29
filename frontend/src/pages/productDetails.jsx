@@ -57,7 +57,7 @@ function productDetails() {
     if (ordersError) {
       toast.error(ordersError, { position: "top-center", autoClose: 3000 });
     }
-    dispatch(errorAllOrders);
+    dispatch(errorAllOrders());
   }, [dispatch, ordersError]);
 
   const increaseQuantity = () => {
@@ -164,23 +164,24 @@ function productDetails() {
       <PageTitle title={product.name} />
       <Navbar />
       <div className="product-details-container">
-        <div className="flex justify-center items-center mx-auto w-1/2 gap-8 p-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-6 lg:flex-row lg:items-start lg:justify-center lg:px-8">
           <div className="flex flex-col gap-4 justify-center items-center">
-            <div className="w-96 h-96">
+            <div className="w-full max-w-md aspect-square">
               <img
                 src={selectedImage || product.image[0].url}
                 alt={product.name}
-                className="w-full h-full object-cover rounded-md"
+                className="h-full w-full rounded-lg object-cover"
               />
             </div>
             {product.image.length > 1 && (
-              <div className="flex gap-2">
+              <div className="flex flex-wrap justify-center gap-3">
                 {product.image.map((img, index) => (
                   <div
-                    className="w-24 h-24 flex-shrink-0"
+                    // className="w-24 h-24 flex-shrink-0"
+                    className=" w-20 h-20 sm:w-24 sm:h-24 cursor-pointer overflow-hidden rounded-lg border hover:border-olive-500"
                     key={index}
                     onMouseEnter={() => setSelectedImage(img.url)}
-                    onMouseLeave={() => setSelectedImage(product.image[0].url)}
+                    onClick={() => setSelectedImage(img.url)}
                   >
                     <img
                       src={img.url}
@@ -192,12 +193,11 @@ function productDetails() {
               </div>
             )}
           </div>
-          <div className="flex flex-col justify-center gap-2">
-            <h2 className="text-xl font-bold">{product.name}</h2>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">
-              {" "}
-              <strong>₹{product.price.toFixed(2)}</strong>
+          <div className="flex w-full max-w-lg flex-col gap-4">
+            <h2 className="text-2xl font-bold md:text-3xl">{product.name}</h2>
+            <p className="text-gray-600 leading-7">{product.description}</p>
+            <p className="text-3xl font-bold text-olive-600">
+              ₹{product.price.toFixed(2)}
             </p>
             <div className="product-rating">
               <Rating value={product.ratings} disabled={true} />
@@ -216,7 +216,7 @@ function productDetails() {
               </span>
             </div>
             {product.stock ? (
-              <div className="flex items-center mt-2">
+              <div className="flex flex-wrap items-center gap-3">
                 <span className="pr-6">Quantity:</span>
                 <button className="btn-secondary" onClick={decreaseQuantity}>
                   <Minus />
@@ -265,13 +265,13 @@ function productDetails() {
             )}
           </div>
         </div>
-        <div className="border-t-1 border-gray-300 mx-12">
+        <div className="border-t-1 border-gray-300 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-xl font-bold mt-2">Customer Reviews</h3>
           <div className="review-section">
             {product.reviews && product.reviews.length > 0 ? (
               product.reviews.map((review) => (
                 <div
-                  className="flex flex-col gap-1 border-b-1 border-gray-300 py-3 last:mb-2"
+                  className="flex flex-col gap-1 rounded-lg border p-4 shadow-sm border-gray-300 py-3 last:mb-2"
                   key={review._id}
                 >
                   <div className="review-header">

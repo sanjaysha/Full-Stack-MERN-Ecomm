@@ -28,27 +28,29 @@ function Cart() {
       <PageTitle title="Your Cart" />
       <Navbar />
       {cartItems && cartItems.length > 0 ? (
-        <div className="flex p-4 gap-4 items-start flex-1">
-          <div className="w-3/4 p-4 rounded-lg shadow-lg bg-gray-50">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-4 py-6 lg:flex-row lg:items-start lg:px-8">
+          <div className="w-full lg:w-3/4 p-4 rounded-lg shadow-lg bg-gray-50">
             <h2 className="text-xl font-bold pb-4">Your Cart</h2>
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-gray-200">
-                <tr>
-                  <th className="rounded-tl-md rounded-bl-md p-2">Product</th>
-                  <th className=" p-2">Quantity</th>
-                  <th className=" p-2">Total Price</th>
-                  <th className="rounded-tr-md rounded-br-md p-2">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems &&
-                  cartItems.map((item) => (
-                    <CartItem key={item.product} item={item} />
-                  ))}
-              </tbody>
-            </table>
+            <div className="overflow-x-auto rounded-lg shadow">
+              <table className="w-full text-left border-collapse">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="rounded-tl-md rounded-bl-md p-2">Product</th>
+                    <th className=" p-2">Quantity</th>
+                    <th className=" p-2">Total Price</th>
+                    <th className="rounded-tr-md rounded-br-md p-2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems &&
+                    cartItems.map((item) => (
+                      <CartItem key={item.product} item={item} />
+                    ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className="w-1/4 p-4 rounded-lg shadow-lg bg-gray-50 flex flex-col gap-2">
+          <div className="w-full lg:w-1/4 lg:sticky lg:top-24 p-4 rounded-lg shadow-lg bg-gray-50 flex flex-col gap-2">
             <h2 className="text-xl font-bold pb-4 border-b border-gray-200">
               Order Summary
             </h2>

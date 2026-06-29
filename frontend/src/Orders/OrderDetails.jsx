@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, removeErrors } from "../features/order/orderSlice";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
-
 function OrderDetails() {
   const { orderId } = useParams();
   const dispatch = useDispatch();
@@ -44,44 +43,47 @@ function OrderDetails() {
             {/* Order Items */}
             <div>
               <h2 className="text-xl font-bold pb-2">Order Items</h2>
-              <table className="w-full text-left border-collapse">
-                <thead className="bg-gray-200">
-                  <tr>
-                    <th className="rounded-tl-md rounded-bl-md p-2">Image</th>
-                    <th className="p-2">Name</th>
-                    <th className="p-2">Quantity</th>
-                    <th className="rounded-tr-md rounded-br-md p-2">Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {order?.orderItems?.map((order) => (
+              <div className="overflow-x-auto bg-gray-50 rounded-lg shadow">
+                <table className="w-full text-left border-collapse">
+                  <thead className="bg-gray-200">
                     <tr>
-                      <td className="p-2 border-b border-gray-200">
-                        <img
-                          src={order.image}
-                          alt={order.name}
-                          className="w-24 h-24 object-cover rounded-md"
-                        />
-                      </td>
-                      <td className="p-2 border-b border-gray-200">
-                        {order.name}
-                      </td>
-                      <td className="p-2 border-b border-gray-200">
-                        {order.quantity}
-                      </td>
-                      <td className="p-2 border-b border-gray-200">
-                        ₹{order.price.toFixed(2)}
-                      </td>
+                      <th className="rounded-tl-md rounded-bl-md p-2">Image</th>
+                      <th className="p-2">Name</th>
+                      <th className="p-2">Quantity</th>
+                      <th className="rounded-tr-md rounded-br-md p-2">Price</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {order?.orderItems?.map((order) => (
+                      <tr>
+                        <td className="p-2 border-b border-gray-200">
+                          <img
+                            src={order.image}
+                            alt={order.name}
+                            className="w-24 h-24 object-cover rounded-md"
+                          />
+                        </td>
+                        <td className="p-2 border-b border-gray-200">
+                          {order.name}
+                        </td>
+                        <td className="p-2 border-b border-gray-200">
+                          {order.quantity}
+                        </td>
+                        <td className="p-2 border-b border-gray-200">
+                          ₹{order.price.toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
             {/* Shipping Info */}
             <div>
               <h2 className="text-xl font-bold pb-2 border-b border-gray-200">
                 Shipping Info
               </h2>
+              {/* <div className="overflow-x-auto bg-gray-50 rounded-lg shadow"> */}
               <table className="w-full text-left border-collapse">
                 <tbody>
                   <tr>
@@ -106,12 +108,14 @@ function OrderDetails() {
                   </tr>
                 </tbody>
               </table>
+              {/* </div> */}
             </div>
             {/* Order Summary */}
             <div>
               <h2 className="text-xl font-bold pb-2 border-b border-gray-200">
                 Order Summary
               </h2>
+              {/* <div className="overflow-x-auto bg-gray-50 rounded-lg shadow"> */}
               <table className="w-full text-left border-collapse">
                 <tbody>
                   <tr>
@@ -190,6 +194,7 @@ function OrderDetails() {
                   </tr>
                 </tbody>
               </table>
+              {/* </div> */}
             </div>
           </div>
         </div>
