@@ -77,7 +77,7 @@ function Payment() {
           className="btn-primary"
           onClick={() => completePayment(orderItem.total)}
         >
-          Pay ₹({orderItem.total})
+          Pay ₹{orderItem.total.toLocaleString()}
         </button>
       </div>
       <Footer />

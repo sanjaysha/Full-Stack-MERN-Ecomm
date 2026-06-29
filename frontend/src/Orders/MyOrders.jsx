@@ -69,7 +69,7 @@ function MyOrders() {
                           </td>
                           <td className="p-2">{order.orderItems.length}</td>
                           <td className="p-2 font-semibold">
-                            ₹{order.totalPrice.toFixed(2)}
+                            ₹{order.totalPrice.toLocaleString()}
                           </td>
                           <td className="p-2">
                             <Link to={`/order/${order._id}`}>

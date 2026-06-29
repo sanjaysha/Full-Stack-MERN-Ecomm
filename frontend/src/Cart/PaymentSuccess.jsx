@@ -91,20 +91,35 @@ function PaymentSuccess() {
         <>
           <PageTitle title="Payment Status" />
           <Navbar />
-          <div className="flex flex-col gap-2 justify-center items-center min-h-screen">
-            <div className="rounded-full w-12 h-12 bg-green-500 flex justify-center items-center">
-              <Check color="#ffff" size={32} />
-            </div>
 
-            <h1>Order Confirmed!</h1>
-            <p>
-              Your Payment was successful. Reference ID{" "}
-              <strong>{reference}</strong>
-            </p>
-            <Link to="/orders/user" className="btn-primary">
-              View Orders
-            </Link>
-          </div>
+          <main className="flex flex-1 items-center justify-center px-4 py-10 sm:px-6 lg:px-8 min-h-[calc(100vh-80px)]">
+            <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-lg sm:p-8">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-500">
+                <Check className="text-white" size={36} />
+              </div>
+
+              <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl">
+                Order Confirmed!
+              </h1>
+
+              <p className="mt-3 break-words text-sm text-gray-600 sm:text-base">
+                Your payment was successful.
+              </p>
+
+              <p className="mt-2 break-all text-sm text-gray-700 sm:text-base">
+                Reference ID:
+                <span className="ml-2 font-semibold">{reference}</span>
+              </p>
+
+              <Link
+                to="/orders/user"
+                className="btn-primary mt-8 flex w-full justify-center"
+              >
+                View Orders
+              </Link>
+            </div>
+          </main>
+
           <Footer />
         </>
       )}

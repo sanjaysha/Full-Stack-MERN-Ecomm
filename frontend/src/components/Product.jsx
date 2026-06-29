@@ -31,7 +31,7 @@ function Product({ product }) {
           <p className="text-gray-600 text-sm">
             <span className="font-medium text-gray-800">Price: </span>
             <span className="text-indigo-600 font-semibold">
-              ₹{product.price.toFixed(2)}
+              ₹{product.price.toLocaleString()}
             </span>
           </p>
           {/* Rating */}

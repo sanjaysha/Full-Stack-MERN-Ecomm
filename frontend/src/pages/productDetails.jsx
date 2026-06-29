@@ -197,7 +197,7 @@ function productDetails() {
             <h2 className="text-2xl font-bold md:text-3xl">{product.name}</h2>
             <p className="text-gray-600 leading-7">{product.description}</p>
             <p className="text-3xl font-bold text-olive-600">
-              ₹{product.price.toFixed(2)}
+              ₹{product.price.toLocaleString()}
             </p>
             <div className="product-rating">
               <Rating value={product.ratings} disabled={true} />

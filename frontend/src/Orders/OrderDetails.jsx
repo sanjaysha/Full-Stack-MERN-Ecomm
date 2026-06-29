@@ -70,7 +70,7 @@ function OrderDetails() {
                           {order.quantity}
                         </td>
                         <td className="p-2 border-b border-gray-200">
-                          ₹{order.price.toFixed(2)}
+                          ₹{order.price.toLocaleString()}
                         </td>
                       </tr>
                     ))}
@@ -167,13 +167,13 @@ function OrderDetails() {
                       Items Price
                     </th>
                     <td className="p-2 border-b border-gray-200">
-                      ₹{order?.itemsPrice?.toFixed(2) || "0.00"}
+                      ₹{order?.itemsPrice?.toLocaleString() || "0.00"}
                     </td>
                   </tr>
                   <tr>
                     <th className="p-2 border-b border-gray-200">Tax Price</th>
                     <td className="p-2 border-b border-gray-200">
-                      ₹{order?.taxPrice?.toFixed(2) || "0.00"}
+                      ₹{order?.taxPrice?.toLocaleString() || "0.00"}
                     </td>
                   </tr>
                   <tr>
@@ -181,7 +181,7 @@ function OrderDetails() {
                       Shipping Price
                     </th>
                     <td className="p-2 border-b border-gray-200">
-                      ₹{order?.shippingPrice?.toFixed(2) || "0.00"}
+                      ₹{order?.shippingPrice?.toLocaleString() || "0.00"}
                     </td>
                   </tr>
                   <tr>
@@ -189,7 +189,7 @@ function OrderDetails() {
                       Total Price
                     </th>
                     <td className="p-2 border-b border-gray-200">
-                      ₹{order?.totalPrice?.toFixed(2) || "0.00"}
+                      ₹{order?.totalPrice?.toLocaleString() || "0.00"}
                     </td>
                   </tr>
                 </tbody>

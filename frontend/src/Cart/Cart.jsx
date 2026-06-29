@@ -62,19 +62,19 @@ function Cart() {
             </h2>
             <div className="flex justify-between">
               <span>Subtotal:</span>
-              <span>₹{subtotal.toFixed(2)}</span>
+              <span>₹{subtotal.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <span>Shipping:</span>
-              <span>₹{shipping.toFixed(2)}</span>
+              <span>₹{shipping.toLocaleString()}</span>
             </div>
             <div className="flex justify-between pb-4 border-b border-gray-200">
               <span>Tax(18%):</span>
-              <span>₹{tax.toFixed(2)}</span>
+              <span>₹{tax.toLocaleString()}</span>
             </div>
             <div className="flex justify-between text-xl font-bold">
               <span>Total:</span>
-              <span>₹{total.toFixed(2)}</span>
+              <span>₹{total.toLocaleString()}</span>
             </div>
             <button className="mt-3 btn-primary" onClick={checkoutHandler}>
               Proceed to Checkout

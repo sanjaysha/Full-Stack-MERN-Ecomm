@@ -105,7 +105,7 @@ function OrdersList() {
                               </span>
                             </td>
                             <td className="p-2">
-                              ₹{order.totalPrice.toFixed(2)}
+                              ₹{order.totalPrice.toLocaleString()}
                             </td>
                             <td className="p-2">{order.orderItems.length}</td>
                             <td className="p-2">

@@ -109,7 +109,8 @@ function UpdateOrder() {
                     : "Not Paid"}
                 </p>
                 <p>
-                  <strong>Total Price: </strong>₹{order.totalPrice?.toFixed(2)}
+                  <strong>Total Price: </strong>₹
+                  {order.totalPrice?.toLocaleString()}
                 </p>
               </div>
               <div className="flex flex-col gap-3">
@@ -148,7 +149,7 @@ function UpdateOrder() {
                             <td className="p-2">{orderItem.name}</td>
                             <td className="p-2">{orderItem.quantity}</td>
                             <td className="p-2">
-                              ₹{orderItem.price.toFixed(2)}
+                              ₹{orderItem.price.toLocaleString()}
                             </td>
                           </tr>
                         ))}

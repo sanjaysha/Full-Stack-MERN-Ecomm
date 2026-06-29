@@ -89,9 +89,11 @@ function OrderConfirm() {
                         />
                       </td>
                       <td className="p-3">{item.name}</td>
-                      <td className="p-3">₹{item.price}</td>
+                      <td className="p-3">₹{item.price.toLocaleString()}</td>
                       <td className="p-3">{item.quantity}</td>
-                      <td className="p-3">₹{item.price * item.quantity}</td>
+                      <td className="p-3">
+                        ₹{(item.price * item.quantity).toLocaleString()}
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -123,10 +125,12 @@ function OrderConfirm() {
               </thead>
               <tbody>
                 <tr className="border-t border-gray-200">
-                  <td className="p-3">₹{subtotal.toFixed(2)}</td>
-                  <td className="p-3">₹{shippingCharges.toFixed(2)}</td>
-                  <td className="p-3">₹{tax.toFixed(2)}</td>
-                  <td className="p-3 font-bold text-lg">₹{total.toFixed(2)}</td>
+                  <td className="p-3">₹{subtotal.toLocaleString()}</td>
+                  <td className="p-3">₹{shippingCharges.toLocaleString()}</td>
+                  <td className="p-3">₹{tax.toLocaleString()}</td>
+                  <td className="p-3 font-bold text-lg">
+                    ₹{total.toLocaleString()}
+                  </td>
                 </tr>
               </tbody>
             </table>

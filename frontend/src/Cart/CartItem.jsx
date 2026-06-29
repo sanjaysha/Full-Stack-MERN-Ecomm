@@ -24,7 +24,7 @@ function CartItem({ item }) {
             />
             <div className="flex flex-col">
               <span className="">{item.name}</span>
-              <span className="">Price:₹{item.price.toFixed(2)}</span>
+              <span className="">Price:₹{item.price.toLocaleString()}</span>
               <span className="">Quantity:{item.quantity}</span>
             </div>
           </div>
@@ -55,7 +55,7 @@ function CartItem({ item }) {
             </button>
           </div>
         </td>
-        <td className="p-2">₹{(item.price * quantity).toFixed(2)}</td>
+        <td className="p-2">₹{(item.price * quantity).toLocaleString()}</td>
         <td className="p-2 flex flex-col gap-2">
           <button
             className="btn-primary"

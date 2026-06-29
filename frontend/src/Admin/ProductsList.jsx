@@ -105,7 +105,9 @@ function ProductsList() {
                             </td>
                             <td className="p-2">{product.name}</td>
                             <td className="p-2">{product.category}</td>
-                            <td className="p-2">₹{product.price.toFixed(2)}</td>
+                            <td className="p-2">
+                              ₹{product.price.toLocaleString()}
+                            </td>
                             <td className="p-2">{product.ratings}</td>
                             <td className="p-2">{product.stock}</td>
                             <td className="p-2">

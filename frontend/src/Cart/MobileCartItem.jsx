@@ -33,7 +33,7 @@ function MobileCartItem({ item }) {
             {item.name}
           </Link>
 
-          <p className="text-gray-600 mt-1">₹{item.price.toFixed(2)}</p>
+          <p className="text-gray-600 mt-1">₹{item.price.toLocaleString()}</p>
 
           <p className="mt-1 text-sm text-gray-500">Available: {item.stock}</p>
         </div>
@@ -74,7 +74,7 @@ function MobileCartItem({ item }) {
         <span className="font-medium">Total</span>
 
         <span className="font-bold text-olive-600">
-          ₹{(item.price * quantity).toFixed(2)}
+          ₹{(item.price * quantity).toLocaleString()}
         </span>
       </div>
 
