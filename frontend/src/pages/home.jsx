@@ -35,8 +35,8 @@ function home() {
         <div className="min-h-screen flex flex-col">
           <PageTitle title="Home-Aravali" />
           <Navbar />
-          <ImageSlider />
           <div className="flex-1">
+            <ImageSlider />
             <h2 className="text-2xl font-semibold text-gray-800 mt-8 mb-4 px-6">
               Trending Now
             </h2>

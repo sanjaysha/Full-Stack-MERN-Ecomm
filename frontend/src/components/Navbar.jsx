@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Search,
@@ -9,18 +9,25 @@ import {
   UserRoundCheck,
 } from "lucide-react";
 import { useSelector } from "react-redux";
+const UserDashboard = lazy(() => import("./UserDashboard"));
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const navLinks = [
+    { label: "Home", to: "/" },
+    { label: "Products", to: "/products" },
+    { label: "About", to: "/about" },
+    { label: "Contact", to: "/contact" },
+  ];
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
 
   const navigate = useNavigate();
@@ -34,10 +41,10 @@ function Navbar() {
     setSearchQuery("");
   };
   return (
-    <nav className="bg-olive-600 text-white">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav className="relative bg-olive-600 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-4 flex items-center justify-between">
         {/* LEFT SECTION */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center shrink-0">
           {/* Logo */}
           <Link
             to="/"
@@ -50,34 +57,24 @@ function Navbar() {
           {/* Links */}
           <ul
             className={`${isMenuOpen ? "flex" : "hidden"} 
-                        flex-col absolute top-16 left-0 w-full bg-olive-600 p-4 gap-4
+                        flex-col absolute top-16 left-0 w-full bg-olive-600 ml-5 gap-0
                         md:static md:flex md:flex-row md:bg-transparent md:p-0 md:gap-6`}
           >
-            <li>
-              <Link to="/" className="hover:text-gray-200">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/products" className="hover:text-gray-200">
-                Products
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className="hover:text-gray-200">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="hover:text-gray-200">
-                Contact
-              </Link>
-            </li>
+            {navLinks.map((navLink, index) => (
+              <li key={index}>
+                <Link
+                  to={navLink.to}
+                  className="transition-colors hover:text-amber-200"
+                >
+                  {navLink.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* RIGHT SECTION */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4 shrink-0">
           {/* Search */}
           <form
             className={`hidden md:flex items-center bg-white rounded-full overflow-hidden transition duration-2000 ${isSearchOpen ? "ease-out" : "ease-in"}`}
@@ -105,16 +102,20 @@ function Navbar() {
           {/* Cart */}
           <Link to="/cart" className="relative">
             <ShoppingCart />
-            <span className="absolute -top-2 -right-2 bg-red-500 text-xs px-1.5 rounded-full">
+            <span className=" absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white ">
               {cartItems.length}
             </span>
           </Link>
 
           {/* User */}
-          {!isAuthenticated && (
+          {!isAuthenticated ? (
             <Link to="/register">
               <UserPlus />
             </Link>
+          ) : (
+            <Suspense fallback={null}>
+              <UserDashboard user={user} />
+            </Suspense>
           )}
 
           {/* Mobile Menu */}
@@ -123,6 +124,26 @@ function Navbar() {
           </div>
         </div>
       </div>
+      {isMenuOpen && (
+        <>
+          <div className="fixed inset-0 bg-black/50" onClick={toggleMenu}></div>
+          <div className="md:hidden absolute top-full left-0 z-50 w-full bg-olive-600 shadow-lg">
+            <ul className="flex flex-col divide-y divide-olive-500">
+              {navLinks.map((navLink, index) => (
+                <li key={index}>
+                  <Link
+                    to={navLink.to}
+                    className="block px-4 sm:px-6 py-3 md:py-4 hover:bg-olive-500 transition"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {navLink.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
     </nav>
   );
 }

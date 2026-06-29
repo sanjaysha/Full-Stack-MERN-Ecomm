@@ -12,7 +12,6 @@ const ProductDetails = lazy(() => import("./pages/productDetails"));
 const Products = lazy(() => import("./pages/products"));
 const Register = lazy(() => import("./User/Register"));
 const Login = lazy(() => import("./User/Login"));
-const UserDashboard = lazy(() => import("./User/UserDashboard"));
 const Profile = lazy(() => import("./User/Profile"));
 const UpdateProfile = lazy(() => import("./User/UpdateProfile"));
 const UpdatePassword = lazy(() => import("./User/UpdatePassword"));
@@ -155,11 +154,6 @@ function App() {
           ></Route>
         </Routes>
       </Suspense>
-      {isAuthenticated && (
-        <Suspense fallback={null}>
-          <UserDashboard user={user} />
-        </Suspense>
-      )}
     </Router>
   );
 }

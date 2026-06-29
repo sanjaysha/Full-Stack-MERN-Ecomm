@@ -82,32 +82,34 @@ function UserDashboard({ user }) {
         <div className="fixed inset-0 bg-black/50" onClick={toggleMenu}></div>
       )}
       <div
-        className="flex absolute top-3 max-w-32 right-8 gap-4 items-center"
+        className="relative flex items-center md:gap-3 cursor-pointer select-none"
         onClick={toggleMenu}
       >
         <img
           src={user.avatar.url ? user.avatar.url : "./images/profile.png"}
           alt="Profile picture"
-          className="rounded-full w-10 h-10 object-cover cursor-pointer"
+          className="w-10 h-10 rounded-full object-cover border-2 border-white/80"
         />
-        <span className="text-lg text-white">
-          {user.name.length > 8 ? user.name.slice(0, 6) + "..." : user.name}
+        <span className="hidden md:block max-w-28 truncate text-base font-medium text-white">
+          {user.name}
         </span>
       </div>
       {isMenuOpen && (
-        <div className="flex flex-col absolute top-18 right-8 gap-2 ">
-          {options.map((option) => (
-            <button
-              className={` ${option.isCart ? (cartItems.length > 0 ? "btn-secondary" : "btn-primary") : "btn-primary"}`}
-              key={option.name}
-              onClick={() => {
-                setIsMenuOpen(false);
-                option.funcName();
-              }}
-            >
-              {option.name}
-            </button>
-          ))}
+        <div className="absolute top-full right-0 mt-2 w-52 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl z-50">
+          <div className="divide-y divide-gray-200">
+            {options.map((option) => (
+              <button
+                className={` w-full px-4 py-3 text-left text-gray-700 transition hover:bg-gray-100 ${option.isCart && cartItems.length > 0 ? "font-semibold text-olive-600" : ""}`}
+                key={option.name}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  option.funcName();
+                }}
+              >
+                {option.name}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </>
