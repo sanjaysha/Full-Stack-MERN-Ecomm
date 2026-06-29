@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
+import MobileCartItem from "./MobileCartItem";
 
 function Cart() {
   const { cartItems } = useSelector((state) => state.cart);
@@ -31,7 +32,7 @@ function Cart() {
         <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-4 py-6 lg:flex-row lg:items-start lg:px-8">
           <div className="w-full lg:w-3/4 p-4 rounded-lg shadow-lg bg-gray-50">
             <h2 className="text-xl font-bold pb-4">Your Cart</h2>
-            <div className="overflow-x-auto rounded-lg shadow">
+            <div className="hidden lg:block overflow-x-auto rounded-lg shadow">
               <table className="w-full text-left border-collapse">
                 <thead className="bg-gray-200">
                   <tr>
@@ -48,6 +49,11 @@ function Cart() {
                     ))}
                 </tbody>
               </table>
+            </div>
+            <div className="lg:hidden space-y-4">
+              {cartItems.map((item) => (
+                <MobileCartItem key={item.product} item={item} />
+              ))}
             </div>
           </div>
           <div className="w-full lg:w-1/4 lg:sticky lg:top-24 p-4 rounded-lg shadow-lg bg-gray-50 flex flex-col gap-2">

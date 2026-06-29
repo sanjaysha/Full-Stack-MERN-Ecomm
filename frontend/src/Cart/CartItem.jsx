@@ -1,89 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Minus, Plus } from "lucide-react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addItemsToCart,
-  removeErrors,
-  removeMessage,
-  removeItemsFromCart,
-} from "../features/cart/cartSlice";
+import useCartItem from "../hooks/useCartItem";
 
 function CartItem({ item }) {
-  const [quantity, setQuantity] = useState(item.quantity);
-  const { success, error, cartItems, message, loading } = useSelector(
-    (state) => state.cart,
-  );
+  const {
+    quantity,
+    loading,
+    increaseQuantity,
+    decreaseQuantity,
+    handleUpdateCart,
+    handleRemoveFromCart,
+  } = useCartItem(item);
 
-  const dispatch = useDispatch();
-
-  const increaseQuantity = () => {
-    if (quantity == item.stock) {
-      toast.info(`You can only add up to ${item.stock} items`, {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      dispatch(removeErrors());
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const decreaseQuantity = () => {
-    if (quantity <= 1) {
-      toast.info("Quantity cannot be less than 1", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      dispatch(removeErrors());
-      return;
-    } else {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const handleUpdateCart = () => {
-    if (quantity === item.quantity) {
-      toast.info("Quantity is already up to date", {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      dispatch(removeErrors());
-      return;
-    } else {
-      dispatch(addItemsToCart({ productId: item.product, quantity }));
-    }
-  };
-
-  const handleRemoveFromCart = () => {
-    dispatch(removeItemsFromCart(item.product));
-    toast.success("Item removed from cart successfully", {
-      position: "top-center",
-      autoClose: 3000,
-    });
-  };
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 3000,
-        toastId: "cart-update-error",
-      });
-      dispatch(removeErrors());
-    }
-  }, [error, dispatch]);
-
-  useEffect(() => {
-    if (success && message) {
-      toast.success(message, {
-        position: "top-center",
-        autoClose: 3000,
-        toastId: "cart-update-success",
-      });
-      dispatch(removeMessage());
-    }
-  }, [success, message, dispatch]);
   return (
     <>
       <tr className="border-b border-gray-200">
