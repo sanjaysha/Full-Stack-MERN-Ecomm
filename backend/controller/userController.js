@@ -8,12 +8,18 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Register User
 export const registerUser = handleAsyncError(async (req, res, next) => {
-  const { name, email, password, avatar } = req.body;
-  const myCloud = await cloudinary.uploader.upload(avatar, {
+  const { name, email, password } = req.body;
+  if (!req.files || !req.files.avatar) {
+    return next(new HandleError("Please upload an avatar", 400));
+  }
+  const avatar = req.files.avatar;
+
+  const myCloud = await cloudinary.uploader.upload(avatar.tempFilePath, {
     folder: "avatars",
     width: 150,
     crop: "scale",
   });
+
   const user = await User.create({
     name,
     email,

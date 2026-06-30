@@ -10,6 +10,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
+  fetchAdminProducts,
   removeError,
   removeSuccess,
   updateProduct,
@@ -41,17 +42,28 @@ function UpdateProduct() {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+
     setProductImages([]);
     setImagePreview([]);
 
     files.forEach((file) => {
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error(`${file.name} exceeds 2 MB`);
+        return;
+      }
+
+      // Store actual file
+      setProductImages((old) => [...old, file]);
+
+      // Preview
       const reader = new FileReader();
+
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setProductImages((old) => [...old, reader.result]);
           setImagePreview((old) => [...old, reader.result]);
         }
       };
+
       reader.readAsDataURL(file);
     });
   };
@@ -59,16 +71,16 @@ function UpdateProduct() {
   const updateProductSubmit = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    myForm.set("name", name);
-    myForm.set("price", price);
-    myForm.set("description", desc);
-    myForm.set("stock", stock);
-    myForm.set("category", category);
-    productImages.forEach((img) => {
-      myForm.append("image", img);
+    myForm.append("name", name);
+    myForm.append("price", price);
+    myForm.append("description", desc);
+    myForm.append("stock", stock);
+    myForm.append("category", category);
+    productImages.forEach((file) => {
+      myForm.append("image", file);
     });
     dispatch(updateProduct({ id: updateId, productData: myForm }));
-    updateLoading ? "" : navigate("/admin/products");
+    if (!updateLoading) navigate("/admin/products");
   };
 
   useEffect(() => {
@@ -149,7 +161,6 @@ function UpdateProduct() {
                 placeholder="Enter Product Price"
                 name="price"
                 value={price}
-                // onChange={(e) => setPrice(e.target.value)}
                 onChange={(e) => {
                   const value = e.target.value;
                   if (value === "" || Number(value) >= 0) {

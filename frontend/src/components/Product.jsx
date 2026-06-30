@@ -1,58 +1,49 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
 function Product({ product }) {
-  const [rating, setRating] = useState(0);
-  const handleRatingChange = (newRating) => {
-    setRating(rating);
-  };
-
   return (
     <Link to={`/product/${product._id}`}>
-      <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+      <article className="group bg-white rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
         {/* Image */}
-        <div className="w-full h-56 overflow-hidden">
+        <div className="relative aspect-square overflow-hidden bg-gray-100">
           <img
             src={product.image[0].url}
             alt={product.name}
-            className="w-full h-full object-cover transform group-hover:scale-105 transition duration-300"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
+
+          {/* Price Badge */}
+          <div className="absolute top-3 left-3 bg-indigo-600 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-semibold shadow">
+            ₹{product.price.toLocaleString()}
+          </div>
         </div>
 
-        {/* Details */}
-        <div className="p-4 flex flex-col text-center gap-2">
-          {/* Title */}
-          <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
+        {/* Content */}
+        <div className="p-3 sm:p-4 flex flex-col gap-3">
+          {/* Product Name */}
+          <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-gray-800 line-clamp-2 min-h-[3rem]">
             {product.name}
           </h3>
 
-          {/* Price */}
-          <p className="text-gray-600 text-sm">
-            <span className="font-medium text-gray-800">Price: </span>
-            <span className="text-indigo-600 font-semibold">
-              ₹{product.price.toLocaleString()}
-            </span>
-          </p>
           {/* Rating */}
-          <div className="group flex justify-center">
-            <Rating
-              value={product.ratings}
-              onRatingChange={handleRatingChange}
-              disabled={true}
-            />
-          </div>
-          <span>
-            ({product.numOfReviews}{" "}
-            {product.numOfReviews === 1 ? "review" : "reviews"})
-          </span>
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <Rating value={product.ratings} disabled />
 
-          {/* Button */}
-          <button className="mt-2 w-full bg-indigo-600 text-white py-2 rounded-lg font-medium hover:bg-indigo-700 active:scale-95 transition duration-200">
-            View Details
-          </button>
+            <span className="text-xs sm:text-sm text-gray-500">
+              ({product.numOfReviews}{" "}
+              {product.numOfReviews === 1 ? "review" : "reviews"})
+            </span>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-auto">
+            <span className="block w-full text-center rounded-lg bg-indigo-600 py-2.5 text-sm font-medium text-white transition-colors duration-200 group-hover:bg-indigo-700">
+              View Details
+            </span>
+          </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 }

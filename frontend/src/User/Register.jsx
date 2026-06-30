@@ -44,20 +44,23 @@ function Register() {
 
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error("Image size should be less than 2 MB");
+        e.target.value = "";
+        return;
+      }
+      setAvatar(file);
+
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
-          setAvatar(reader.result);
         }
       };
-      reader.onerror = (error) => {
-        toast.error("Error reading file. Please try again.", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }

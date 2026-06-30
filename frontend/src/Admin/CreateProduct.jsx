@@ -24,16 +24,23 @@ function CreateProduct() {
 
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.admin);
+
   const createProductImage = (e) => {
     const files = Array.from(e.target.files);
     setProductImages([]);
     setImagePreview([]);
 
     files.forEach((file) => {
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error(`${file.name} exceeds 2 MB`);
+        return;
+      }
+
+      setProductImages((old) => [...old, file]);
+
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setProductImages((old) => [...old, reader.result]);
           setImagePreview((old) => [...old, reader.result]);
         }
       };
@@ -44,14 +51,15 @@ function CreateProduct() {
   const createProductSubmit = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    myForm.set("name", name);
-    myForm.set("price", price);
-    myForm.set("description", desc);
-    myForm.set("stock", stock);
-    myForm.set("category", category);
-    productImages.forEach((img) => {
-      myForm.append("image", img);
+    myForm.append("name", name);
+    myForm.append("price", price);
+    myForm.append("description", desc);
+    myForm.append("stock", stock);
+    myForm.append("category", category);
+    productImages.forEach((file) => {
+      myForm.append("image", file);
     });
+
     dispatch(createProduct(myForm));
   };
 

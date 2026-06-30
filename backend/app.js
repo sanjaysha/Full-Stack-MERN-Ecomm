@@ -22,7 +22,17 @@ const app = express();
 app.use(express.json());
 // Middleware to parse cookies
 app.use(cookieParser());
-app.use(fileUpload());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+    limits: {
+      fileSize: 2 * 1024 * 1024, // 2 MB
+    },
+    abortOnLimit: true,
+    responseOnLimit: "Image size should be less than 2 MB",
+  }),
+);
 
 //Route
 app.use("/api/v1", product);
