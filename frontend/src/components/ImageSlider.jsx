@@ -6,6 +6,10 @@ function ImageSlider() {
     "./images/banner2.jpg",
     "./images/banner4.jpg",
     "./images/banner5.jpg",
+    "./images/banner6.jpg",
+    "./images/banner7.jpg",
+    "./images/banner8.jpg",
+    "./images/banner9.jpg",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,7 +25,7 @@ function ImageSlider() {
   }, []);
 
   return (
-    <div className="relative overflow-hidden w-full h-[300px] md:h-[400px]">
+    <div className="relative aspect-[16/10] lg:aspect-[16/4] overflow-hidden">
       {/* Images */}
       <div
         className="flex transition-transform duration-700 ease-in-out h-full"
