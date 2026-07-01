@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./features/user/userSlice";
 
 const Home = lazy(() => import("./pages/home"));
+const About = lazy(() => import("./pages/about"));
+const Contact = lazy(() => import("./pages/contact"));
 const ProductDetails = lazy(() => import("./pages/productDetails"));
 const Products = lazy(() => import("./pages/products"));
 const Register = lazy(() => import("./User/Register"));
@@ -57,6 +59,8 @@ function App() {
           <Route path="/products/:keyword" element={<Products />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/about" element={<About />}></Route>
           <Route
             path="/profile"
             element={<ProtectedRoute element={<Profile />} />}
