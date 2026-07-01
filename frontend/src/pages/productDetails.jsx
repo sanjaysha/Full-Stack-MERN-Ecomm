@@ -32,6 +32,7 @@ function productDetails() {
   const { product, loading, error, reviewSuccess, reviewLoading } = useSelector(
     (state) => state.product,
   );
+  const { isAuthenticated } = useSelector((state) => state.user);
   const {
     loading: ordersLoading,
     error: ordersError,
@@ -48,16 +49,20 @@ function productDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const orderExists = orders.some((order) =>
-    order.orderItems.some((item) => item.product === id),
+  const orderExists = orders.some(
+    (order) =>
+      order.orderItems.some((item) => item.product === id) &&
+      order.orderStatus === "Delivered",
   );
 
   useEffect(() => {
-    dispatch(getAllMyOrders());
-    if (ordersError) {
-      toast.error(ordersError, { position: "top-center", autoClose: 3000 });
+    if (isAuthenticated) {
+      dispatch(getAllMyOrders());
+      if (ordersError) {
+        toast.error(ordersError, { position: "top-center", autoClose: 3000 });
+      }
+      dispatch(errorAllOrders());
     }
-    dispatch(errorAllOrders());
   }, [dispatch, ordersError]);
 
   const increaseQuantity = () => {

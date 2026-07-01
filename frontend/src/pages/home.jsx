@@ -52,7 +52,7 @@ function home() {
                 {resultsPerPage} Products
               </span>
             </div>
-            <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ">
+            <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
               {products.map((product) => (
                 <Product key={product._id} product={product} />
               ))}
